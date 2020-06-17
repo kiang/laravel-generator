@@ -123,7 +123,7 @@ class GeneratorPublishCommand extends PublishBaseCommand
 
         FileUtil::createDirectoryIfNotExist($repositoryPath);
 
-        $fileName = 'BaseRepository.php';
+        $fileName = 'SkelBaseRepository.php';
 
         if (file_exists($repositoryPath.$fileName) && !$this->confirmOverwrite($fileName)) {
             return;
@@ -131,7 +131,7 @@ class GeneratorPublishCommand extends PublishBaseCommand
 
         FileUtil::createFile($repositoryPath, $fileName, $templateData);
 
-        $this->info('BaseRepository created');
+        $this->info('SkelBaseRepository created');
     }
 
     private function publishLocaleFiles()

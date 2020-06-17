@@ -31,9 +31,6 @@ class GeneratorField
     public $inView = true;
     public $isNotNull = false;
 
-    /** @var int */
-    public $numberDecimalPoints = 2;
-
     /**
      * @param Column $column
      * @param $dbInput

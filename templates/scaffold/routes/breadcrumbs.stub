@@ -1,0 +1,19 @@
+<?php
+Breadcrumbs::for('admin.$MODEL_NAME_PLURAL_SNAKE$.index', function ($trail) {
+    $trail->push(__('menus.backend.$MODEL_NAME_PLURAL_SNAKE$.index'), route('admin.$MODEL_NAME_PLURAL_SNAKE$.index'));
+});
+
+Breadcrumbs::for('admin.$MODEL_NAME_PLURAL_SNAKE$.create', function ($trail) {
+    $trail->parent('admin.$MODEL_NAME_PLURAL_SNAKE$.index');
+    $trail->push(__('menus.backend.$MODEL_NAME_PLURAL_SNAKE$.create'), route('admin.$MODEL_NAME_PLURAL_SNAKE$.create'));
+});
+
+Breadcrumbs::for('admin.$MODEL_NAME_PLURAL_SNAKE$.show', function ($trail) {
+    $trail->parent('admin.$MODEL_NAME_PLURAL_SNAKE$.index');
+    $trail->push(__('menus.backend.$MODEL_NAME_PLURAL_SNAKE$.show'), route('admin.$MODEL_NAME_PLURAL_SNAKE$.show', 'id'));
+});
+
+Breadcrumbs::for('admin.$MODEL_NAME_PLURAL_SNAKE$.edit', function ($trail) {
+    $trail->parent('admin.$MODEL_NAME_PLURAL_SNAKE$.index');
+    $trail->push(__('menus.backend.$MODEL_NAME_PLURAL_SNAKE$.edit'), route('admin.$MODEL_NAME_PLURAL_SNAKE$.edit', 'id'));
+});

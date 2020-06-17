@@ -15,11 +15,13 @@ use InfyOm\Generator\Commands\Publish\GeneratorPublishCommand;
 use InfyOm\Generator\Commands\Publish\LayoutPublishCommand;
 use InfyOm\Generator\Commands\Publish\PublishTemplateCommand;
 use InfyOm\Generator\Commands\Publish\PublishUserCommand;
+use InfyOm\Generator\Commands\Publish\VueJsLayoutPublishCommand;
 use InfyOm\Generator\Commands\RollbackGeneratorCommand;
 use InfyOm\Generator\Commands\Scaffold\ControllerGeneratorCommand;
 use InfyOm\Generator\Commands\Scaffold\RequestsGeneratorCommand;
 use InfyOm\Generator\Commands\Scaffold\ScaffoldGeneratorCommand;
 use InfyOm\Generator\Commands\Scaffold\ViewsGeneratorCommand;
+use InfyOm\Generator\Commands\VueJs\VueJsGeneratorCommand;
 
 class InfyOmGeneratorServiceProvider extends ServiceProvider
 {
@@ -108,6 +110,13 @@ class InfyOmGeneratorServiceProvider extends ServiceProvider
             return new RollbackGeneratorCommand();
         });
 
+        $this->app->singleton('infyom.vuejs', function ($app) {
+            return new VueJsGeneratorCommand();
+        });
+        $this->app->singleton('infyom.publish.vuejs', function ($app) {
+            return new VueJsLayoutPublishCommand();
+        });
+
         $this->app->singleton('infyom.publish.user', function ($app) {
             return new PublishUserCommand();
         });
@@ -129,6 +138,8 @@ class InfyOmGeneratorServiceProvider extends ServiceProvider
             'infyom.scaffold.requests',
             'infyom.scaffold.views',
             'infyom.rollback',
+            'infyom.vuejs',
+            'infyom.publish.vuejs',
             'infyom.publish.user',
         ]);
     }

@@ -274,17 +274,11 @@ class ViewGenerator extends BaseGenerator
                 }
                 $columns = substr_replace($columns, '', -1); // remove last ,
 
-                $htmlValues = explode(',', $field->htmlValues[0]);
-                $selectTable = $htmlValues[0];
-                $modalName = null;
-                if (count($htmlValues) == 2) {
-                    $modalName = $htmlValues[1];
-                }
-
+                $selectTable = $field->htmlValues[0];
                 $tableName = $this->commandData->config->tableName;
                 $variableName = Str::singular($selectTable).'Items'; // e.g $userItems
 
-                $fieldTemplate = $this->generateViewComposer($tableName, $variableName, $columns, $selectTable, $modalName);
+                $fieldTemplate = $this->generateViewComposer($tableName, $variableName, $columns, $selectTable);
             }
 
             if (!empty($fieldTemplate)) {
@@ -307,13 +301,13 @@ class ViewGenerator extends BaseGenerator
         $this->commandData->commandInfo('field.blade.php created');
     }
 
-    private function generateViewComposer($tableName, $variableName, $columns, $selectTable, $modelName = null)
+    private function generateViewComposer($tableName, $variableName, $columns, $selectTable)
     {
         $fieldTemplate = get_template('scaffold.fields.select', $this->templateType);
 
         $viewServiceProvider = new ViewServiceProviderGenerator($this->commandData);
         $viewServiceProvider->generate();
-        $viewServiceProvider->addViewVariables($tableName.'.fields', $variableName, $columns, $selectTable, $modelName);
+        $viewServiceProvider->addViewVariables($tableName.'.fields', $variableName, $columns, $selectTable);
 
         $fieldTemplate = str_replace(
             '$INPUT_ARR$',

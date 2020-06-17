@@ -278,10 +278,6 @@ class TableFieldsGenerator
         $field->parseDBType($dbType.','.$column->getPrecision().','.$column->getScale());
         $field->htmlType = 'number';
 
-        if ($dbType === 'decimal') {
-            $field->numberDecimalPoints = $column->getScale();
-        }
-
         return $this->checkForPrimary($field);
     }
 

@@ -18,6 +18,9 @@ class RoutesGenerator
 
     /** @var string */
     private $routesTemplate;
+    
+    private $breadcrumbsBackendContent;
+    private $breadcrumbsTemplate;
 
     public function __construct(CommandData $commandData)
     {
@@ -30,6 +33,11 @@ class RoutesGenerator
             $this->routesTemplate = get_template('scaffold.routes.routes', 'laravel-generator');
         }
         $this->routesTemplate = fill_template($this->commandData->dynamicVars, $this->routesTemplate);
+        
+        $this->breadcrumbsBackendContent = file_get_contents(base_path('routes/breadcrumbs/backend/backend.php'));
+        
+        $this->breadcrumbsTemplate = get_template('scaffold.routes.breadcrumbs', 'laravel-generator');
+        $this->breadcrumbsTemplate = fill_template($this->commandData->dynamicVars, $this->breadcrumbsTemplate);
     }
 
     public function generate()
@@ -43,6 +51,10 @@ class RoutesGenerator
         }
 
         file_put_contents($this->path, $this->routeContents);
+        
+        file_put_contents(base_path('routes/breadcrumbs/backend/' . $this->commandData->config->mSnakePlural . '.php'), $this->breadcrumbsTemplate);
+        $this->breadcrumbsBackendContent .= "\nrequire __DIR__.'/{$this->commandData->config->mSnakePlural}.php';";
+        file_put_contents(base_path('routes/breadcrumbs/backend/backend.php'), $this->breadcrumbsBackendContent);
         $this->commandData->commandComment("\n".$this->commandData->config->mCamelPlural.' routes added.');
     }
 
